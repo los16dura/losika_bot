@@ -2,8 +2,8 @@ from datetime import datetime
 import telebot
 from telebot import apihelper, types
 
-bot = telebot.TeleBot(open('token.txt').read().strip())
-
+with open('token.txt', 'rt') as file:
+    bot = telebot.TeleBot(file.read().strip())
 
 #ход конём
 def convert(text):
@@ -34,7 +34,7 @@ def send_start(message):
 
 @bot.message_handler(commands=['help'])
 def send_help(message):
-    s_help = "Чтобы вызвать команду в любом чате,нужно сначала ввести имя бота @losika_bot , затем текст,который вы хотите преобразовать, и в выпадающем меню вы увидите варианты написания\n\n"\
+    s_help = "Чтобы вызвать команду в любом чате,нужно сначала ввести имя бота @botbratbot , затем текст,который вы хотите преобразовать, и в выпадающем меню вы увидите варианты написания\n\n"\
              "Пока он умеет:\n"\
              "Писать текст \"конём\" (см. 2сh)))\n"\
              "Писать \"по-братски\""
@@ -69,6 +69,4 @@ def query_text(inline_query):
         print(e)
 
 
-bot.polling()
-
-
+bot.polling(none_stop=True)

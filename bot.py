@@ -5,6 +5,7 @@ from telebot import apihelper, types
 with open('token.txt', 'rt') as file:
     bot = telebot.TeleBot(file.read().strip())
 
+
 #ход конём
 def convert(text):
     ans = ' '.join(text) + '\n'
@@ -22,6 +23,27 @@ def brat(text):
 def rrr(text):
     ans = text.replace('р', 'г\'').replace('Р', 'Г\'')
     return ans
+
+import random
+
+#ор
+def haha():
+    return 'ха' * random.randint(1, 10)
+
+def vgolos():
+    return 'в голосину'
+
+def oru():
+    return 'ору'
+
+def orr():
+    or_function = random.choice([oru, vgolos, haha])
+    starting = 'брат, ' if random.choice([True, False]) else ''
+    ending = ' брат' if random.choice([True, False]) else ''
+    return starting + or_function() + ending
+
+
+
 
 
 @bot.message_handler(commands=['start'])
@@ -42,11 +64,18 @@ def send_help(message):
     bot.send_message(message.chat.id, s_help)
 
 
-@bot.message_handler(content_types=['text'])
-def eto_gde(message):
-    text = message.text.lower()
-    if (text.find('это где') != -1) or (text.find('ето где') != -1) or (text.find('ты где') != -1):
-        bot.send_message(message.chat.id, 'в общаге?', reply_to_message_id=message.message_id)
+@bot.message_handler(content_types=['audio', 'video', 'document', 'text', 'location', 'contact', 'sticker','photo'])
+def hahahahaha(message):
+    t = random.randint(1, 20)
+    print(t)
+    if message.text:
+        text = message.text.lower()
+        if (text.find('это где') != -1) or (text.find('ето где') != -1) or (text.find('ты где') != -1):
+            bot.send_message(message.chat.id, 'в общаге?', reply_to_message_id=message.message_id)
+            return
+    if t == 20:
+        bot.send_message(message.chat.id, orr(), reply_to_message_id=message.message_id)
+
 
 
 @bot.inline_handler(lambda query: True)
@@ -61,9 +90,9 @@ def query_text(inline_query):
         title2 = ans2
         title3 = ans3
         now = str(datetime.now())
-        r1 = types.InlineQueryResultArticle('k' + now, title1, types.InputTextMessageContent(ans1))
-        r2 = types.InlineQueryResultArticle('b' + now, title2, types.InputTextMessageContent(ans2))
-        r3 = types.InlineQueryResultArticle('r' + now, title3, types.InputTextMessageContent(ans3), thumb_url='http://fb.ru/misc/i/gallery/40013/1161626.jpg')
+        r1 = types.InlineQueryResultArticle('k' + now, title1, types.InputTextMessageContent(ans1), thumb_url='https://github.com/los16dura/losika_bot/blob/master/title_1.jpg?raw=true')
+        r2 = types.InlineQueryResultArticle('b' + now, title2, types.InputTextMessageContent(ans2), thumb_url='https://github.com/los16dura/losika_bot/blob/master/title_2.jpg?raw=true')
+        r3 = types.InlineQueryResultArticle('r' + now, title3, types.InputTextMessageContent(ans3), thumb_url='https://github.com/los16dura/losika_bot/blob/master/title_3.jpg?raw=true')
         bot.answer_inline_query(inline_query.id, [r1,r2,r3])
     except Exception as e:
         print(e)
